@@ -1,4 +1,24 @@
-rdb-fullstack
+Tournament project
 =============
 
-Common code for the Relational Databases and Full Stack Fundamentals courses
+## To run
+
+```
+$ cd vagrant
+```
+
+```
+$ vagrant up
+```
+
+```
+$ vagrant ssh
+```
+
+```
+$ cd vagrant/tournament 
+```
+
+```
+$ python tournament_tests.py 
+```
