@@ -33,18 +33,18 @@ def countPlayers():
     """Returns the number of players currently registered."""
     db = connect()
     c = db.cursor()
-    c.execute("SELECT id from players")
-    players = c.fetchall()
+    c.execute("SELECT count(*) from players")
+    players=c.fetchall()[0][0]
     db.close()
-    return len(players)
+    return players
 
 
 def getMatches():
     """Returns the number of players currently registered."""
     db = connect()
     c = db.cursor()
-    c.execute("SELECT id, winner, loser from matches")
-    matches = c.fetchall()
+    c.execute("SELECT count(*) from matches")
+    matches = c.fetchall()[0][0]
     db.close()
     return len(matches)
 
@@ -81,10 +81,13 @@ def playerStandings():
     """
     db = connect()
     c = db.cursor()
-    c.execute("SELECT players.id, players.name, (select count(*) from matches where matches.winner = players.id) as matches_won, (select count(*) from matches where players.id in (winner, loser)) as matches_played FROM players ORDER BY matches_won DESC")
+    c.execute("SELECT players.id, players.name, (select count(*) \
+    from matches where matches.winner = players.id) as matches_won, \
+    (select count(*) from matches where players.id in (winner, loser)) \
+    as matches_played FROM players ORDER BY matches_won DESC")
     standings = c.fetchall()
-    return standings
     db.close()
+    return standings
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -117,14 +120,12 @@ def swissPairings():
         name2: the second player's name
     """
     standings = playerStandings()
-    # makesure the list is in order of wins
-    standings = sorted(standings,key=lambda x: x[3])
     pairings = pairs(standings)
     return pairings
 
 def pairs(the_list):
     newlist = []
-    g = 0 #crappy index hack 
+    g = 0 # crappy index hack 
     # loop goes through list, and pairs addjacent tuples
     for i in range(len(the_list) - 2):
         current_item, next_item = the_list[g], the_list[g + 1]

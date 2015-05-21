@@ -7,11 +7,18 @@
 -- these lines here.
 
 -- Keep player data and matches data seperate
-CREATE TABLE players(id SERIAL, name TEXT, primary key(id));
+CREATE TABLE players 
+  ( 
+     id   SERIAL, 
+     NAME TEXT, 
+     PRIMARY KEY(id) 
+  ); 
 
-CREATE TABLE matches( id SERIAL primary key,
-					 winner INT,
-					 loser INT,
-					 foreign key(winner) references players(id),
-					 foreign key(loser) references players(id) 
-					 );
+CREATE TABLE matches 
+  ( 
+     id     SERIAL PRIMARY KEY, 
+     winner INT, 
+     loser  INT, 
+     FOREIGN KEY(winner) REFERENCES players(id), 
+     FOREIGN KEY(loser) REFERENCES players(id) 
+  ); 

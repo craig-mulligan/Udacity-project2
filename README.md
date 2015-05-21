@@ -1,9 +1,50 @@
-<<<<<<< HEAD
-rdb-fullstack
+Tournament project
 =============
 
-Common code for the Relational Databases and Full Stack Fundamentals courses
-=======
-# Udacity-project2
-swiss pairing tournament excercise
->>>>>>> 3126ecc93577b0a7e1c47890c4498bf057ab68af
+## To run
+
+start VM
+
+```
+$ cd vagrant
+```
+
+```
+$ vagrant up
+```
+
+```
+$ vagrant ssh
+```
+
+```
+$ cd vagrant/tournament 
+```
+
+start postgres 
+
+```
+$ sudo service postgresql start
+```
+
+create database
+
+```
+$ psql 
+```
+
+```
+$ createdb tournament 
+```
+
+import schema
+
+```
+psql tournament < /vagrant/tournament/tournament.sql
+```
+
+run tests
+
+```
+$ python /vagrant/tournament/tournament_tests.py 
+```
